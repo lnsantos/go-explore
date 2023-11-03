@@ -3,6 +3,8 @@ package main
 import (
 	"awesomeProject/src/presenter"
 	"fmt"
+	"github.com/julienschmidt/httprouter"
+	"log"
 	"net/http"
 	"strings"
 )
@@ -29,9 +31,22 @@ func handlerRoot(
 }
 
 func main() {
-	http.HandleFunc("/", handlerRoot)
+	// serverHttp()
+	serverHttpRouter()
+}
 
-	err := http.ListenAndServe(":8000", nil)
+func serverHttpRouter() {
+	router := httprouter.New()
+	router.GET("/api/v1/go-version", presenter.GetGoVersion)
+
+	log.Fatal(http.ListenAndServe(":8000", router))
+}
+
+func serverHttp() {
+	newMux := http.NewServeMux()
+	newMux.HandleFunc("/", handlerRoot)
+
+	err := http.ListenAndServe(":8000", newMux)
 
 	if err != nil {
 		fmt.Print("Server not online")
