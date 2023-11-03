@@ -38,7 +38,7 @@ func main() {
 func serverHttpRouter() {
 	router := httprouter.New()
 	router.GET("/api/v1/go-version", presenter.GetGoVersion)
-
+	router.GET("/api/v1/variable/:variable", presenter.GetVariable)
 	log.Fatal(http.ListenAndServe(":8000", router))
 }
 
