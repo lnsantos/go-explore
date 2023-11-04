@@ -1,4 +1,4 @@
-package domain
+package data
 
 var ListFilm = map[int]string{
 	1: "Meu malvado favorito",
